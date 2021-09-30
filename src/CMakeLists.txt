@@ -32,4 +32,5 @@ add_library (light_pcapng_static STATIC
     light_pcapng_ext.c
     )
 
+add_subdirectory(python)
 add_subdirectory(tests)
