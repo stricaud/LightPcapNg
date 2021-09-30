@@ -66,7 +66,7 @@ int main(int argc, const char **args) {
 				printf("user app is: %s\n", info->user_app_desc);
 
 			const char *file_write = "output.pcapng";
-			light_pcapng_t *pcapng_write = light_pcapng_open_write(file_write, light_create_default_file_info());
+			light_pcapng_t *pcapng_write = light_pcapng_open_write(file_write, light_create_default_file_info(), 10);
 
 			light_pcapng_t *pcapng_append = light_pcapng_open_append(file_append);
 			//light_pcapng_t *pcapng_write = light_pcapng_open_write(file_write, info);
@@ -101,7 +101,7 @@ int main(int argc, const char **args) {
 							pkt_header.interface_id,
 							pkt_header.data_link,
 							(int)pkt_header.timestamp.tv_sec,
-							(int)pkt_header.timestamp.tv_usec);
+							(int)pkt_header.timestamp.tv_nsec);
 
 					uint16_t comment_len = 15;
 					char comment[comment_len];
@@ -116,7 +116,7 @@ int main(int argc, const char **args) {
 				}
 			}
 
-			printf("interface count in file: %d\n", info->interface_block_count);
+			printf("interface count in file: %ld\n", info->interface_block_count);
 
 			light_pcapng_close(pcapng_read);
 			light_pcapng_close(pcapng_write);

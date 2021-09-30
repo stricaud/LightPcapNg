@@ -3,6 +3,9 @@ project (light_pcapng C)
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${CMAKE_CURRENT_SOURCE_DIR}/include/ -Wall -O2 -fPIC -DUNIVERSAL -g")
 
 add_library (light_pcapng SHARED
+    src/light_compression.c
+    src/light_null_compression.c
+    src/light_zstd_compression.c
     src/light_io.c
     src/light_pcapng.c
     src/light_pcapng_cont.c
@@ -16,6 +19,9 @@ add_library (light_pcapng SHARED
     )
 
 add_library (light_pcapng_static STATIC
+    src/light_compression.c
+    src/light_null_compression.c
+    src/light_zstd_compression.c
     src/light_io.c
     src/light_pcapng.c
     src/light_pcapng_cont.c
