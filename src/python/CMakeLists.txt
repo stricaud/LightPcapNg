@@ -1,1 +1,2 @@
 pybind11_add_module(pycapng light_pcapng.cpp)
+target_link_libraries(pycapng PRIVATE light_pcapng_static)
