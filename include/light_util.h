@@ -27,6 +27,6 @@
 #define PADD32(val, aligned_val_p) do { \
 		*aligned_val_p = (val % sizeof(uint32_t)) == 0 ? val : (val / sizeof(uint32_t) + 1) * sizeof(uint32_t); \
 } while (0)
-
+#define ADD_PADDING(x) (( ((x)+3) >>2)<<2)
 
 #endif /* INCLUDE_LIGHT_UTIL_H_ */

@@ -18,6 +18,7 @@ public:
   int OpenAppend(char *file);
   int Close(void);
   int WritePacket(py::bytes data, const std::string &comment);
+  int WriteCustomPacket(py::bytes data, const std::string &comment);
   //
   light_pcapng_t *get_pcapng(void) { return _pcapng; };
   int get_compression_level(void) { return compression_level; };

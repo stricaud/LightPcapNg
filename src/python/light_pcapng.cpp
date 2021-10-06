@@ -8,6 +8,7 @@
 
 #include <light_pcapng.h>
 #include <light_pcapng_ext.h>
+#include <light_blocks.h>
 
 #include "light_pcapng.hpp"
 #include "light_pcapng_fileinfo.hpp"
@@ -72,13 +73,54 @@ int PcapNg::WritePacket(py::bytes data, const std::string &comment)
   return 0;
 }
 
+int PcapNg::WriteCustomPacket(py::bytes data, const std::string &comment)  
+{
+  light_custom_block_t *cb;
+
+  py::buffer_info info(py::buffer(data).request());
+  uint8_t *data_bytes = reinterpret_cast<uint8_t *>(info.ptr);
+  size_t data_len = static_cast<size_t>(info.size);
+
+  cb = light_custom_block_new();
+  cb->block_total_length = 17;
+  cb->pen = 123;
+  
+  light_custom_block_write(_pcapng, data_bytes, data_len);
+  
+  // light_packet_header header;
+
+  // timespec timestamp;
+  // int frame_length;
+  // int retval;
+
+  // py::buffer_info info(py::buffer(data).request());
+  // uint8_t *data_bytes = reinterpret_cast<uint8_t *>(info.ptr);
+  // size_t data_len = static_cast<size_t>(info.size);
+    
+  // header.captured_length = data_len;
+  // header.original_length = data_len; // Frame length
+  // retval = clock_gettime(CLOCK_MONOTONIC, &header.timestamp);
+  // header.data_link = LIGHT_LINKTYPE_ETHERNET; // get link layer type
+  // header.interface_id = 0;
+  // header.comment = NULL;
+  // header.comment_length = 0;
+  // if (!comment.empty()) {
+  //   header.comment = (char *)comment.c_str();
+  //   header.comment_length = static_cast<uint16_t>(comment.size());
+  // }
+  // light_write_custom_block_packet(_pcapng, &header, data_bytes);
+
+  // return 0;
+}
+
 PYBIND11_MODULE(pycapng, m) {
     m.doc() = "LightPcapNG Python Bindings";
     py::class_<PcapNg>(m, "PcapNg")
       .def(py::init<>())
       .def("OpenRead", &PcapNg::OpenRead)
       .def("OpenWrite", &PcapNg::OpenWrite)
-      .def("WritePacket", &PcapNg::WritePacket);
+      .def("WritePacket", &PcapNg::WritePacket)
+      .def("WriteCustomPacket", &PcapNg::WriteCustomPacket);
     py::class_<PcapNgFileInfo>(m, "PcapNgFileInfo")
       .def(py::init<>())
       .def(py::init<const std::string &, const std::string &,const std::string &,const std::string &>())

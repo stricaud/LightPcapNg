@@ -1,6 +1,7 @@
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${CMAKE_CURRENT_SOURCE_DIR}/include/ -Wall -O2 -fPIC -DUNIVERSAL -g")
 
 add_library (light_pcapng SHARED
+    light_blocks.c
     light_compression.c
     light_null_compression.c
     light_zstd_compression.c
@@ -17,6 +18,7 @@ add_library (light_pcapng SHARED
     )
 
 add_library (light_pcapng_static STATIC
+    light_blocks.c
     light_compression.c
     light_null_compression.c
     light_zstd_compression.c

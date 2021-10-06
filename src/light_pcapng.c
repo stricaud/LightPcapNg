@@ -178,9 +178,9 @@ void parse_by_block_type(struct _light_pcapng *current, const uint32_t *local_da
       }
       break;
 
-      case LIGHT_CUSTOM_DATA_BLOCK:
+      case LIGHT_NONSTD_CUSTOM_DATA_BLOCK:
       {
-         DPRINT_HERE(LIGHT_CUSTOM_DATA_BLOCK);
+         DPRINT_HERE(LIGHT_NONSTD_CUSTOM_DATA_BLOCK);
          struct _light_custom_nonstandard_block *cnb = NULL;
          struct _light_option *opt = NULL;
          uint32_t len = *local_data++;

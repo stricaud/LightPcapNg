@@ -466,6 +466,17 @@ int light_get_next_packet(light_pcapng_t *pcapng, light_packet_header *packet_he
 
 static const uint8_t NSEC_PRECISION = 9;
 
+/* Writes a Interface Description Block (IDB) packet
+ *
+ * [..] contains a single Section Header Block (SHB),
+ * a single Interface Description Block (IDB) and
+ * a few Enhanced Packet Blocks (EPB).
+ *
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ * | SHB | IDB | EPB | EPB |    ...    | EPB |
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ *
+ */
 void light_write_packet(light_pcapng_t *pcapng, const light_packet_header *packet_header, const uint8_t *packet_data)
 {
 	DCHECK_NULLP(pcapng, return);
